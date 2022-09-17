@@ -1,5 +1,5 @@
 const path = require('path')
-const signUpTable = require('../model/sign-up-model')
+//const signUpTable = require('../model/sign-up-model')
 
 exports.signUpConstructor = (req, res, next) => {
     res.sendFile(path.join(__dirname, '../', 'views', 'sign-up.html'))
