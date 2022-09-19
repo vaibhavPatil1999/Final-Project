@@ -94,6 +94,32 @@
 
  }
 
+ .newslatter form input:last-child{
+    /* .subbtn{ */
+     position: absolute;
+     display: inline-block;
+     outline: none;
+     border: none;
+     padding: 10px 30px;
+     border-radius: 30px;
+     background-color: #f9004d;
+     color: white;
+     box-shadow: 0px 0px 5px #000, 0px 0px 15px #858585;
+     /* top:6px;
+    right:6px; */
+ }
+
+ p {
+    padding: 1em 1em 1em;
+    /* max-width: 400px;
+    margin: 50px auto 0; */
+   box-shadow: 0 0 1em lightyellow;
+     border-radius:30px;
+    
+  
+ }
+
+ 
 
 
 
@@ -117,19 +143,7 @@
 
 
 
- .newslatter form input:last-child {
-     position: absolute;
-     display: inline-block;
-     outline: none;
-     border: none;
-     padding: 10px 30px;
-     border-radius: 30px;
-     background-color: #f9004d;
-     color: white;
-     box-shadow: 0px 0px 5px #000, 0px 0px 15px #858585;
-     /* top:6px;
-    right:6px; */
- }
+ 
 
  /*
  .main {

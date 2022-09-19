@@ -16,7 +16,10 @@
     <div class="hero">
         <nav>
             <h2 class="logo">Sign<span>Up</span></h2>
+            <p class="small fw-bold mt-2 pt-1 mb-0" style="color:white;">Do have an already account? <a
+                    href="http://localhost:5000/log-in" class="link-danger" style="color:#f9004d;">login</a></p>
         </nav>
+
 
         <div class="content">
             <h4>Beware of little expenses; a small leak will sink a great ship</h4>
@@ -27,7 +30,7 @@
                     <input type="text" name="name" placeholder="Enter Your Name"><br><br>
                     <input type="email" name="email" placeholder="Enter Your Email"><br><br>
                     <input type="password" name="password" placeholder="Create Password"><br><br>
-                    <input type="submit" name="submit" value="Sign-Up">
+                    <input type="submit" name="submit" value="Sign-Up" class="subbtn">
                 </form>
             </div>
         </div>
@@ -35,48 +38,55 @@
 
 
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script>
-        // document.getElementById('sign-up-form').addEventListener('submit', async (event) => {
-            document.getElementById('sign-up-form').addEventListener('submit',  (event) => {
-
-            // try {
-                event.preventDefault()
-
-                const name = event.target.name.value
-                const email = event.target.email.value
-                const password = event.target.password.value
+        document.getElementById('sign-up-form').addEventListener('submit', (event) => {
 
 
-                const signUpDetails = {
-                    name,
-                    email,
-                    password
-                }
+            event.preventDefault()
 
-                // const Response = await axios.post('http://localhost:2022/sign-up', signUpDetails)
-                axios.post('http://localhost:2022/sign-up', signUpDetails)
+            const name = event.target.name.value
+            const email = event.target.email.value
+            const password = event.target.password.value
 
-               /* if (Response.status === 201) {
-                   // window.location.href = ""
-                } else {
-                    throw new Error('Failed to login')
-                }
 
-            } catch (err) {
-                document.body.innerHTML += `<div style="color:red;">${err}</div>;`
+            const signUpDetails = {
+                name,
+                email,
+                password
             }
-                     */
 
+            axios.post('http://localhost:5000/sign-up', signUpDetails).then((result) => {
+                if (result.data.success === true) {
+                    alert("sign up  completed ! please login into your account")
+                    event.target.name.value = ""
+                    event.target.email.value = ""
+                    event.target.password.value = ""
+                }
+                else {
+                    if (result.data.errors[0].message === 'email must be unique') {
+                        alert("user already exist ! please login")
+                        event.target.name.value = ""
+                        event.target.email.value = ""
+                        event.target.password.value = ""
+                    }
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
 
         })
 
+
+
+
+
+
+
+
     </script>
-
-
-
-
-
 
 
 
