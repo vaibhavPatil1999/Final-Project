@@ -1,206 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Expense Tracker</title>
-  </head>
-  <style>
-    @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
-:root {
-  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>homepage</title>
+    <link rel="stylesheet" type="text/css" href="homepage.css">
 
-* {
-  box-sizing: border-box;
-}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=josefin+Sans:ital,wght@0,100;0,200;0,300;0,
+    400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-body {
-  background-color: #f7f7f7;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Lato', sans-serif;
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==
+    " crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    /* table,
+    th,
+    td {
+        border: 1px solid white;
+    }
 
-.container {
-  margin: 30px auto;
-  width: 350px;
-}
+    tr {
+        color: azure;
+    } */
+</style>
 
-h1 {
-  letter-spacing: 1px;
-  margin: 0;
-}
+<body>
 
-h3 {
-  border-bottom: 1px solid #bbb;
-  padding-bottom: 10px;
-  margin: 40px 0 10px;
-}
+    <div class="hero">
+        <nav>
+            <h2 class="logo">Expense<span>Tracker</span></h2>
+            <ul class="ul1">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Subscription</a></li>
+                <li><a href="#">Sign Out</a></li>
+                <!-- <li><a href="#">Contact Me</a></li> -->
+            </ul>
+            <a href="#" class="btn">saving mode</a>
+        </nav>
+        <div class="content">
+            <h4></h4>
+            <h1><span></span></h1>
+            <h3></h3>
+            <div class="newslatter">
 
-h4 {
-  margin: 0;
-  text-transform: uppercase;
-}
+                <form id="ExpenceForm">
+                    <label for="ExpenseAmount"> Expense Amount:</label>
+                    <input type="number" ; id="ExpenseAmount" ; min="0" ; max="1000000" ; steps="1" ;
+                        name="ExpenseAmount">
+                    <label for="Decription">Write Description:</label>
+                    <input type="text" ; id="Description" ; name="Description">
+                    <label>Select a category:</label>
+                    <select id="dropdownList" ; name="dropdownList">
+                        <option value="Grocery">Grocery</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Mobile">Mobile</option>
+                        <option value="Party">Party</option>
+                        <option value="Other">Other</option>
+                    </select>
 
-.inc-exp-container {
-  background-color: #fff;
-  box-shadow: var(--box-shadow);
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-}
+                    <button type="submit" ;id="submitBtn" class="subbtn">Add Expense</button>
 
-.inc-exp-container > div {
-  flex: 1;
-  text-align: center;
-}
+                </form>
+                <section class="cont">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Options</th>
 
-.inc-exp-container > div:first-of-type {
-  border-right: 1px solid #dedede;
-}
+                            </tr>
+                        </thead>
+                        <tbody id="expenseTable">
 
-.money {
-  font-size: 20px;
-  letter-spacing: 1px;
-  margin: 5px 0;
-}
+                        </tbody>
+                    </table>
+                </section>
 
-.money.plus {
-  color: #2ecc71;
-}
-
-.money.minus {
-  color: #c0392b;
-}
-
-label {
-  display: inline-block;
-  margin: 10px 0;
-}
-
-input[type='text'],
-input[type='number'] {
-  border: 1px solid #dedede;
-  border-radius: 2px;
-  display: block;
-  font-size: 16px;
-  padding: 10px;
-  width: 100%;
-}
-
-.btn {
-  cursor: pointer;
-  background-color: #9c88ff;
-  box-shadow: var(--box-shadow);
-  color: #fff;
-  border: 0;
-  display: block;
-  font-size: 16px;
-  margin: 10px 0 30px;
-  padding: 10px;
-  width: 100%;
-}
-
-.btn:focus,
-.delete-btn:focus {
-  outline: 0;
-}
-
-.list {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 40px;
-}
-
-.list li {
-  background-color: #fff;
-  box-shadow: var(--box-shadow);
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-.list li.plus {
-  border-right: 5px solid #2ecc71;
-}
-
-.list li.minus {
-  border-right: 5px solid #c0392b;
-}
-
-.delete-btn {
-  cursor: pointer;
-  background-color: #e74c3c;
-  border: 0;
-  color: #fff;
-  font-size: 20px;
-  line-height: 20px;
-  padding: 2px 5px;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translate(-100%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.list li:hover .delete-btn {
-  opacity: 1;
-}
-  </style>
-  <body>
-    <h2>Expense Tracker</h2>
-
-    <div class="container">
-      <h4>Your Balance</h4>
-      <h1 id="balance">$0.00</h1>
-
-      <div class="inc-exp-container">
-        <div>
-          <h4>Income</h4>
-          <p id="money-plus" class="money plus">+$0.00</p>
+            </div>
         </div>
-        <div>
-          <h4>Expense</h4>
-          <p id="money-minus" class="money minus">-$0.00</p>
-        </div>
-      </div>
-
-      <h3>History</h3>
-      <ul id="list" class="list">
-        <!-- <li class="minus">
-          Cash <span>-$400</span><button class="delete-btn">x</button>
-        </li> -->
-      </ul>
-
-      <h3>Add new transaction</h3>
-      <form id="form">
-        <div class="form-control">
-          <label for="text">Text</label>
-          <input type="text" id="text" placeholder="Enter text..." />
-        </div>
-        <div class="form-control">
-          <label for="amount"
-            >Amount <br />
-            (negative - expense, positive - income)</label
-          >
-          <input type="number" id="amount" placeholder="Enter amount..." />
-        </div>
-        <button class="btn">Add transaction</button>
-      </form>
     </div>
-    <script src="script.js"></script>
-  </body>
-</html>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
+    <script>
+
+        const expenseForm = document.getElementById('ExpenceForm')
+
+        expenseForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+
+            const amount = document.getElementById('ExpenseAmount').value
+            const description = document.getElementById('Description').value
+            const category = document.getElementById('dropdownList').value
+
+            const expenseDetails = {
+                amount,
+                description,
+                category
+            }
+
+
+
+            axios.post('http://localhost:5000/home/addexpense', expenseDetails).then((response) => {
+                if (response.data.suc === true) {
+                    alert('Expense is added successfully')
+                }
+                showExpenses(response.data.data)
+                console.log(response)
+
+            }).catch((err) => {
+                alert('something went wrong')
+            })
+
+        })
+
+
+        const showExpenses = (expenses) => {
+
+            const expenseTable = document.getElementById('expenseTable');
+
+
+            expenseTable.innerHTML +=
+                `<tr id="${expenses.id}">
+            <td >${expenses.amount}</td>
+            <td >${expenses.description}</td>
+            <td>${expenses.category}</td>
+            
+            <td><button  class="deletebtn" onclick="deleteExpense(${expenses.id})">
+                    Delete</button>&#160<button   class="editbtn" onclick="editExpense(${expenses.id})">Update</button>
+            
+            </tr>`
+        }
+
+
+        window.addEventListener('DOMContentLoaded', (e) => {
+            e.preventDefault()
+            const token =  localStorage.getItem('token')
+            axios.get('http://localhost:5000/home/getexpense',{headers:{"Authorization":token}}).then((response) => {
+                
+                for (i = 0; i < response.data.data.length; i++) {
+                    showExpenses(response.data.data[i])
+                }
+            }).catch((err) => {
+                alert(err)
+            })
+        })
+
+
+
+        function deleteExpense(expenseID) {
+             axios.delete(`http://localhost:5000/home/getexpense/delete/${expenseID}`)
+             .then((response)=>{
+            removeFromScreen(expenseID)
+         }).then(err=>{
+            console.log(err)
+         })
+        }
+
+
+
+
+        function removeFromScreen(expenseID) {
+            const parent = document.getElementById('expenseTable');
+            const child = document.getElementById(expenseID)
+            parent.removeChild(child)
+
+        }
+
+
+
+    </script>
