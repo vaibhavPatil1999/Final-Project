@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log-In</title>
     <link rel="stylesheet" href="log-in.css">
-    <!-- <link rel="stylesheet" type="text/css" href="slide navbar style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet"> -->
 </head>
 
 
@@ -32,10 +30,14 @@
                     <input type="email" name="email" placeholder="Enter Your Email"><br><br>
                     <input type="password" name="password" placeholder="Enter Your Password"><br><br>
                     <input type="submit" name="submit" value="LogIn" class="subbtn">
+                    
                 </form>
+                <a href="http://localhost:5000/forgot" class="f" id="forgot">forgot password ?</a>
+                <!-- <button class="f"  id="forgot">forgot password..?</button> -->
             </div>
         </div>
     </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script>
@@ -70,13 +72,20 @@
 
                 event.target.email.value = ""
                 event.target.password.value = ""
-
-
             })
-
-
-
         })
+        
+        /*forgot password event*/
+        document.getElementById('forgot').addEventListener('click',(e)=>{
+                 e.preventDefault()
+                 axios.get('http://localhost:5000/forgot').then((res)=>{
+                    location.replace('http://localhost:5000/forgot')
+                 })
+        })
+
+
+
+
 
 
 

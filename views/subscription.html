@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up</title>
+    <link rel="stylesheet" href="sign-up.css">
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'josefin Sans', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .hero {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../black2.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 45px;
+        padding-left: 8%;
+        padding-right: 8%;
+    }
+
+    .logo {
+        color: white;
+        font: size 35px;
+        letter-spacing: 1px;
+        cursor: pointer;
+    }
+
+    span {
+        color: #f9004d;
+    }
+
+    nav ul li {
+        list-style-type: none;
+        display: inline-block;
+        padding: 10px 25px;
+    }
+
+
+
+    nav ul li a:hover {
+        color: #f9004d;
+        transition: .4s;
+
+    }
+
+    h3 {
+        color: white;
+        margin: 20px 0px 20px;
+        font-size: 40px;
+    }
+
+
+
+    h4 {
+        color: #fcfc;
+        letter-spacing: 2px;
+        font: size 20px;
+    }
+
+    li {
+        color: #fcfc;
+        letter-spacing: 2px;
+        line-break: auto;
+        font: size 20px;
+    }
+
+    .newslatter form {
+        width: 380px;
+        max-width: 100%;
+        position: relative;
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        transform: translateY(-50%);
+    }
+
+    .newslatter form input {
+        display: inline-block;
+        width: 100%;
+        padding: 14px 130px 14px 15px;
+        border: 2px solid #f9004d;
+        outline: none;
+
+        border-radius: 30px;
+
+    }
+
+    .newslatter form input:last-child {
+
+        padding: 10px 30px;
+
+        outline: none;
+        border: none;
+        background-color: #f9004d;
+        color: white;
+        box-shadow: 0px 0px 5px #000, 0px 0px 15px #858585;
+        transition: transform .4s;
+
+    }
+
+    .newslatter form input:last-child:hover {
+        transform: scale(1.2);
+    }
+
+    p {
+        padding: 1em 1em 1em;
+        /* max-width: 400px;
+    margin: 50px auto 0; */
+        box-shadow: 0 0 1em lightyellow;
+        border-radius: 30px;
+
+
+    }
+</style>
+
+<body>
+    <div class="hero">
+        <nav>
+            <h2 class="logo"> Premium<span>Membership</span></h2>
+        </nav>
+
+
+        <div class="content">
+            <h4>“A budget is telling your money where to go, instead of wondering where it went.”</h4>
+
+
+            <h3>Subscription<span> Benifits:</span></h3>
+            <li> Exclusive pie chart to display your expense</li><br>
+            <li> Inspiring qoutes</li><br>
+            <li> Suggetion of extra savings</li><br>
+            <li>And many more (just in 100rs/month)</li><br>
+
+
+
+            <div class="newslatter">
+                <form id="sign-up-form">
+                    <input type="submit" name="Pay" value="Pay" class="subbtn" id="pay">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
+
+    <script>
+        const payBtn = document.getElementById('pay')
+        payBtn.addEventListener('click', buySubscription)
+
+        function buySubscription(e) {
+            e.preventDefault()
+            let token = localStorage.getItem("token");
+
+            axios.get('http://localhost:5000/home/subscription/membership', { headers: { Authorization: token } }).then((Response) => {
+                // console.log(Response)
+
+                const options = {
+                    key: Response.data.key,
+                    name: 'shadow clone',
+                    order_id: Response.data.createRazorOrder.orderId,
+                    prefill: {
+                        name: "vaibhav patil",
+                        email: "vaibhav@example.com",
+                        contact: "9657440636",
+                    },
+                    theme: {
+                        color: "#528FF0",
+                    },
+                    handler: function (response) {
+                        // console.log(">>>" , response);
+                        axios
+                            .post(
+                                "http://localhost:5000/home/subscription/updatetransaction",
+                                {
+                                    order_id: options.order_id,
+                                    payment_id: response.razorpay_payment_id,
+                                },
+                                { headers: { authorization: token } }
+                            ).then(() => {
+                                alert("You are a Premium User Now");
+                                location.reload();
+                            })
+                            .catch(() => {
+                                alert("Something went wrong. Try Again!!!");
+                            });
+                    }
+                };
+
+                const rzp1 = new Razorpay(options);
+                rzp1.open();
+                rzp1.on('payment.failed', function (response) {
+                    alert("payment failed");
+                    alert(response.error.description);
+                    alert(response.error.source);
+                    alert(response.error.step);
+                    alert(response.error.reason);
+                    alert(response.error.metadata.order_id);
+                    alert(response.error.metadata.payment_id);
+                });
+
+
+
+
+            })
+
+
+
+
+        }
+
+
+    </script>
+        

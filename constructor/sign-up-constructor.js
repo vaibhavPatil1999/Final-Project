@@ -15,7 +15,7 @@ exports.postSignUpConstructor = async (req, res, next) => {
     const { name, email, password } = req.body
     const encryptedPassword = await bcrypt.hash(password, 10)
 
-    signUpTable.create({ name: name, email: email, password: encryptedPassword })
+    signUpTable.create({ name: name, email: email, password: encryptedPassword})
         .then((result) => {
             res.status(201).json({ result, success: true })
         }).catch((error)=>{
@@ -23,3 +23,5 @@ exports.postSignUpConstructor = async (req, res, next) => {
         })
 
 }
+
+

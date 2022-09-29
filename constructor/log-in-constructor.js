@@ -2,7 +2,7 @@ const path = require('path')
 const signUpTable = require('../model/sign-up-model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const ammananna='db43a197a80ce2990dab5eb45d7bf4b25f3d5d1824d856ed4a186930016e85980d1f94e4944005f0a752e895c8dc6d29bcfcd9d3b60740904c826b40612e1f05';
+const ammananna='VP1999';
 
 
 
@@ -46,4 +46,13 @@ exports.postLogInConstructor =  async (req,res) => {
     }
     
     
+}
+
+/*forgot password*/
+exports.forgot = (req,res) =>{
+    res.sendFile(path.join(__dirname,'../' , 'views' , 'forgot.html'))
+} 
+
+exports.forgotPassword = (req,res) =>{
+    console.log(req.body)
 }

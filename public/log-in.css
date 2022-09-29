@@ -93,8 +93,8 @@ h4 {
 
 }
 
-.newslatter form input:last-child{
-   /* .subbtn{ */
+ .newslatter form input:last-child{ 
+   /* .subbtn{  */
     position: absolute;
     display: inline-block;
     outline: none;
@@ -109,11 +109,23 @@ h4 {
 }
 
 p {
-   padding: 1em 1em 1em;
-   /* max-width: 400px;
+    padding: 1em 1em 1em;
+    /* max-width: 400px;
    margin: 50px auto 0; */
   box-shadow: 0 0 1em lightyellow;
     border-radius:30px;
    
  
+}
+
+.f{
+    position: relative;
+    right: 2px;
+    bottom: -50px;
+    color: #fcfc; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+
+
+
 }

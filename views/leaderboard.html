@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leaderboard</title>
+    <script src="https://kit.fontawesome.com/134da7a391.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="./board.css"> -->
+</head>
+<style>
+    .mainbar {
+        background-color: rgb(89, 86, 84);
+        display: flex;
+        padding: 10px;
+    }
+
+    #home {
+        color: white;
+        text-decoration: none;
+        margin-left: 40%;
+    }
+
+    .logout {
+        color: red;
+        list-style: none;
+        font-weight: 600;
+        margin-left: 47%;
+        cursor: pointer;
+    }
+
+    .maincon {
+        width: 70%;
+    }
+
+    body {
+        background-image: url(/black2.jpg);
+
+    }
+</style>
+
+<body>
+
+    <div class="mainbar">
+
+     <a href="http://localhost:5000/home" id="home">Home</a> 
+     <!-- <a > <button id="back">back</button></a> -->
+
+    </div>
+
+    <div class="text-center my-5 text-success container-fluid p-2">
+        <h2>LEADERBOARD</h2>
+
+    </div>
+    <div class="container maincon">
+        <div id="allexpenses">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="color:white;">NAME</th>
+                        <th scope="col" style="color:white;">EXPENSE</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <script>
+
+
+
+
+        const tbody = document.getElementById('tbody')
+        document.addEventListener("DOMContentLoaded", (e) => {
+            e.preventDefault()
+
+            let token = localStorage.getItem("token");
+            axios.get("http://localhost:5000/home/getleaderboard", { headers: { Authorization: token } }).then((res) => {
+                console.log(res)
+                for (i = 0; i < res.data.length; i++) {
+                    const parent = document.getElementById('tbody')
+
+                    const child = `<tr> 
+                                <td style="color:#fcfc">${res.data[i].name}</td>
+                                <td style="color:#fcfc">${res.data[i].total_amount}</td>
+                                   </tr>`
+
+                    parent.innerHTML += child
+
+                }
+
+            }).catch((err)=>{
+                alert('refresh the page! something went wrong')
+            })
+
+
+
+        })
+
+
+        
+    </script>
+
+</body>
+
+</html>

@@ -28,7 +28,10 @@ const signUpTable = sequelize.define("sign-up", {
         allowNull: false,
         unique:true,
     },
-    
+    issubscribed:{
+        type:Sequelize.BOOLEAN,
+        defaultValue:false
+    }
 })
 
 module.exports = signUpTable
