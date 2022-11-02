@@ -10,6 +10,8 @@ const { error } = require('console')
 const signUpTable = require('../model/sign-up-model')
 const sequelize = require('../util/database-connection')
 const Sequelize = require('sequelize')
+const {Op}=require('sequelize');
+
 
 
 exports.getHomePage = (req, res) => {
@@ -119,13 +121,14 @@ exports.updatetransaction = async (req, res) => {
 
 }
 
-
+/*leaderboard*/
 exports.leaderboard = (req, res) => {
     res.sendFile(path.join(__dirname, '../', 'views', 'leaderboard.html'))
 }
 
 
 exports.getLeaderboard = async (req, res) => {
+    
     try {
         const totalAmount = await expenseTable.findAll({
             attributes: ["signUpId", [Sequelize.fn("sum", Sequelize.col("amount")), "total_amount"]],
@@ -134,8 +137,8 @@ exports.getLeaderboard = async (req, res) => {
 
 
         })
-        // console.log(totalAmount.sort((a, b) => b.total_amount - a.total_amount));
-
+        console.log(totalAmount.sort((a, b) => b.total_amount - a.total_amount));
+     
         for (i = 0; i < totalAmount.length; i++) {
             const user = await signUpTable.findAll({
                 attributes: ["name"],
@@ -147,14 +150,64 @@ exports.getLeaderboard = async (req, res) => {
 
         res.status(200).json(totalAmount)
         //  console.log(">>>--", totalAmount)
+              
 
+    
     } catch (err) {
         console.log(err)
         res.status(401).json(err)
     }
 }
 
+/*
+    const data = await expenseTable.findAll()
 
+
+    let obj = {}
+
+    for(i=0;i<data.length;i++){
+     let sID =    data[i].signUpId 
+      let am =   data[i].amount
+
+    //   OBJ[sID] = am
+      obj[data[i].signUpId] = obj[data[i].signUpId] ? obj[data[i].signUpId] + am : am;
+
+
+    }
+
+    console.log(obj)
+ */
+
+
+
+
+
+
+
+/*report*/
+exports.report = (req, res) => {
+    res.sendFile(path.join(__dirname, "../", "views", "report.html"))
+}
+
+exports.dailyReport = (req,res) =>{
+    const today = new Date().setHours(0, 0, 0, 0);
+    const now = new Date();
+
+    req.user
+      .getExpenses({
+        where: {
+          createdAt: {
+            [Op.gt]: today,
+            [Op.lt]: now,
+          },
+        },
+      })
+      .then((result) => {
+        res.json(result);
+      });
+
+
+}
 
 
 

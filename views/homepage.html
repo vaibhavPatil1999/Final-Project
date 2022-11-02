@@ -37,6 +37,7 @@
                 <li><a href="#">Profile</a></li>
                 <li><a href="http://localhost:5000/home/subscription">Subscription</a></li>
                 <li><a href="http://localhost:5000/home/leaderboard" id="leaderboard" style="display:none">Leaderboard</a></li>
+                <li><a href="http://localhost:5000/home/report" id="report" style="display:none">Report</a></li>
                 <li><a href="#">Sign Out</a></li>
                 <!-- <li><a href="#">Contact Me</a></li> -->
             </ul>
@@ -190,18 +191,31 @@
             // console.log(res)
             if(res.data.permission[0].issubscribed === true){
                 document.getElementById('leaderboard').style.display = "block"
+                document.getElementById('report').style.display = "block"
+
+
             }
 
            })
         })
-
+         
+        /*leaderboard*/
         document.getElementById('leaderboard').addEventListener('click', (e)=>{
             e.preventDefault()
             axios.get("http://localhost:5000/home/leaderboard").then(()=>{
                 location.replace("http://localhost:5000/home/leaderboard")
             })
         })
+        
 
+        /*report*/
+        document.getElementById('report').addEventListener('click', (e)=>{
+            e.preventDefault()
+            axios.get("http://localhost:5000/home/report").then(()=>{
+                location.replace("http://localhost:5000/home/report")
+            })
+        })
+        
       
 
     </script>

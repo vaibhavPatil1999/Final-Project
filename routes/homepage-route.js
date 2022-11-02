@@ -27,7 +27,9 @@ routes.get('/home/issubscribed',auth.authenticate,homePageConstructor.issubscrib
  routes.get('/home/leaderboard',homePageConstructor.leaderboard)
  routes.get('/home/getleaderboard',auth.authenticate,homePageConstructor.getLeaderboard)
 
-
+/*report*/
+routes.get('/home/report' , homePageConstructor.report)
+routes.get('/daily/report' ,auth.authenticate, homePageConstructor.dailyReport)
 
 
 

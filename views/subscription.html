@@ -197,7 +197,7 @@
                                 { headers: { authorization: token } }
                             ).then(() => {
                                 alert("You are a Premium User Now");
-                                location.reload();
+                                location.href = "http://localhost:5000/home"
                             })
                             .catch(() => {
                                 alert("Something went wrong. Try Again!!!");
